@@ -13,6 +13,13 @@ function agregarAmigo() {
         return;
     }
 
+    // Validación de caracteres especiales
+    if (!/^[a-záéíóúüñ\s]+$/i.test(amigoInsertado)) {
+        Swal.fire("El nombre no debe contener caracteres especiales ni números.");
+        limpiarTxt();
+        return;
+    }
+
     // Validación de nombres duplicados
     if (amigosParaSortear.includes(amigoInsertado)) {
         Swal.fire("Ese nombre ya se encuentra registrado, por favor, ingresa un nombre distinto.");
@@ -36,12 +43,12 @@ function actualizarListaAmigos() {
 }
 
 
-function sortearAmigo() { 
+function sortearAmigo() {
 
-    
+
     if (amigosParaSortear.length === 0) { //Si aún no se ingresan amigos
         Swal.fire("Necesitas ingresar amigos a la lista");
-        
+
     } else if (amigosSorteados.length === amigosParaSortear.length) { // Si ya se sorteron todos los amigos
         Swal.fire("Ya se han sorteado todos los amigos.");
         return;
@@ -53,13 +60,13 @@ function sortearAmigo() {
         let indiceSorteado = Math.floor(Math.random() * amigosParaSortear.length);
         let posibleAmigo = amigosParaSortear[indiceSorteado];
 
-                // Verificar si el amigo ya fue sorteado
+        // Verificar si el amigo ya fue sorteado
         if (!amigosSorteados.includes(posibleAmigo)) {
             amigoSorteado = posibleAmigo;
             amigosSorteados.push(amigoSorteado);
             break; // Salimos del bucle cuando encontramos un amigo no sorteado
         }
-        
+
     }
 
     if (amigoSorteado) {
